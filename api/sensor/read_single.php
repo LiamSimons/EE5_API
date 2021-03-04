@@ -5,23 +5,23 @@
   header('Content-Type: application/json');
 
   include_once '../../config/Database.php';
-  include_once '../../models/Category.php';
+  include_once '../../models/Sensor.php';
   // Instantiate DB & connect
   $database = new Database();
   $db = $database->connect();
-  // Instantiate blog category object
-  $category = new Category($db);
+  // Instantiate blog sensor object
+  $sensor = new Sensor($db);
 
   // Get ID
-  $category->id = isset($_GET['id']) ? $_GET['id'] : die();
+  $sensor->id = isset($_GET['id']) ? $_GET['id'] : die();
 
   // Get post
-  $category->read_single();
+  $sensor->read_single();
 
   // Create array
   $category_arr = array(
-    'id' => $category->id,
-    'name' => $category->name
+    'id' => $sensor->id,
+    'name' => $sensor->name
   );
 
   // Make JSON

@@ -6,29 +6,29 @@
   header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization,X-Requested-With');
 
   include_once '../../config/Database.php';
-  include_once '../../models/Category.php';
+  include_once '../../models/Sensor.php';
   // Instantiate DB & connect
   $database = new Database();
   $db = $database->connect();
 
-  // Instantiate blog post object
-  $category = new Category($db);
+  // Instantiate sensor object
+  $sensor = new Sensor($db);
 
-  // Get raw posted data
+  // Get raw data
   $data = json_decode(file_get_contents("php://input"));
 
   // Set ID to UPDATE
-  $category->id = $data->id;
+  $sensor->id = $data->id;
 
-  $category->name = $data->name;
+  $sensor->name = $data->name;
 
-  // Update post
-  if($category->update()) {
+  // Update sensor
+  if($sensor->update()) {
     echo json_encode(
-      array('message' => 'Category Updated')
+      array('message' => 'Sensor Updated')
     );
   } else {
     echo json_encode(
-      array('message' => 'Category not updated')
+      array('message' => 'Sensor not updated')
     );
   }
