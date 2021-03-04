@@ -16,8 +16,11 @@
 
   // Get raw posted data
   $data = json_decode(file_get_contents("php://input"));
-
-  $sensor->name = $data->name;
+  
+  var_dump(file_get_contents('php://input'));
+  $sensor->location = $data->location;
+  $sensor->sensor_type = $data->sensor_type;
+  $sensor->sample_rate = $data->sample_rate;
 
   // Create Sensor
   if($sensor->create()) {

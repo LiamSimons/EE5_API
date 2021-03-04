@@ -30,7 +30,9 @@
 
           $cat_item = array(
             'id' => $sensor_id,
-            //'name' => $name
+            'type' => $sensor_type,
+            'location' => $location,
+            'sample_rate' => $sample_rate,
           );
 
           // Push to "data"
