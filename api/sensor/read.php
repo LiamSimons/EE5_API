@@ -29,8 +29,8 @@
           extract($row);
 
           $cat_item = array(
-            'id' => $id,
-            'name' => $name
+            'id' => $sensor_id,
+            //'name' => $name
           );
 
           // Push to "data"

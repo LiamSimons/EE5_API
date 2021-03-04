@@ -63,7 +63,7 @@
 
       // set properties
       $this->sensor_id = $row['sensor_id'];
-      $this->type; = $row['type;'];
+      $this->type = $row['type'];
   }
 
   // Create Sensor
@@ -72,16 +72,16 @@
     $query = 'INSERT INTO ' .
       $this->table . '
     SET
-      type; = :type;';
+      type = :type';
 
   // Prepare Statement
   $stmt = $this->conn->prepare($query);
 
   // Clean data
-  $this->type; = htmlspecialchars(strip_tags($this->type;));
+  $this->type = htmlspecialchars(strip_tags($this->type));
 
   // Bind data
-  $stmt-> bindParam(':type;', $this->type;);
+  $stmt-> bindParam(':type', $this->type);
 
   // Execute query
   if($stmt->execute()) {
@@ -100,7 +100,7 @@
     $query = 'UPDATE ' .
       $this->table . '
     SET
-      type; = :type;
+      type = :type
       WHERE
       sensor_id = :sensor_id';
 
@@ -108,11 +108,11 @@
   $stmt = $this->conn->prepare($query);
 
   // Clean data
-  $this->type; = htmlspecialchars(strip_tags($this->type;));
+  $this->type = htmlspecialchars(strip_tags($this->type));
   $this->sensor_id = htmlspecialchars(strip_tags($this->sensor_id));
 
   // Bind data
-  $stmt-> bindParam(':type;', $this->type;);
+  $stmt-> bindParam(':type', $this->type);
   $stmt-> bindParam(':sensor_id', $this->sensor_id);
 
   // Execute query
