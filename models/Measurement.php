@@ -1,14 +1,14 @@
 <?php
-  class Sensor {
+  class Measurement {
     // DB Stuff
     private $conn;
-    private $table = 'Sensor';
+    private $table = 'Measurements';
 
     // Properties
+    public $id_measurement;
     public $sensor_id;
-    public $sensor_type;
-    public $location;
-    public $sample_rate;
+    public $time;
+    public $value;
 
     // Constructor with DB
     public function __construct($db) {
@@ -19,14 +19,16 @@
     public function read() {
       // Create query
       $query = 'SELECT
+ 
+
+        id_measurement,
         sensor_id,
-        sensor_type,
-        location,
-        sample_rate
+        time,
+        value
       FROM
         ' . $this->table . '
       ORDER BY
-        sensor_id DESC';
+        time DESC';
 
       // Prepare statement
       $stmt = $this->conn->prepare($query);
@@ -41,13 +43,13 @@
   public function read_single(){
     // Create query
     $query = 'SELECT
+        id_measurement,
         sensor_id,
-        sensor_type,
-        location,
-        sample_rate
+        time,
+        value
         FROM
           ' . $this->table . '
-      WHERE sensor_id = ?
+      WHERE id_measurement = ?
       LIMIT 0,1';
 
       //Prepare statement
@@ -71,9 +73,10 @@
     $query = 'INSERT INTO ' .
       $this->table . '
     SET
-      sensor_type = :sensor_type,
-      location = :location,
-      sample_rate = :sample_rate'
+    id_measurement = :id_measurement,
+    sensor_id = :sensor_id,
+    time=:time,
+    value=:value'
       ;
 
   // Prepare Statement
@@ -83,9 +86,10 @@
   $this->sensor_type = htmlspecialchars(strip_tags($this->sensor_type));
 
   // Bind data
-  $stmt-> bindParam(':sensor_type', $this->sensor_type);
-  $stmt-> bindParam(':location', $this->location);
-  $stmt-> bindParam(':sample_rate', $this->sample_rate);
+  $stmt-> bindParam(':id_measurement', $this->sensor_type);
+  $stmt-> bindParam(':sensor_id', $this->location);
+  $stmt-> bindParam(':time', $this->sample_rate);
+  $stmt-> bindParam(':value', $this->value);
 
   // Execute query
   if($stmt->execute()) {
@@ -104,7 +108,10 @@
     $query = 'UPDATE ' .
       $this->table . '
     SET
-      sensor_type = :sensor_type
+       id_measurement = :id_measurement,
+    sensor_id = :sensor_id,
+    time=:time,
+    value=:value
       WHERE
       sensor_id = :sensor_id';
 
@@ -112,12 +119,14 @@
   $stmt = $this->conn->prepare($query);
 
   // Clean data
-  $this->sensor_type = htmlspecialchars(strip_tags($this->sensor_type));
-  $this->sensor_id = htmlspecialchars(strip_tags($this->sensor_id));
+  //$this->sensor_type = htmlspecialchars(strip_tags($this->sensor_type));
+  //$this->sensor_id = htmlspecialchars(strip_tags($this->sensor_id));
 
   // Bind data
-  $stmt-> bindParam(':sensor_type', $this->sensor_type);
-  $stmt-> bindParam(':sensor_id', $this->sensor_id);
+  $stmt-> bindParam(':id_measurement', $this->sensor_type);
+  $stmt-> bindParam(':sensor_id', $this->location);
+  $stmt-> bindParam(':time', $this->sample_rate);
+  $stmt-> bindParam(':value', $this->value);
 
   // Execute query
   if($stmt->execute()) {
@@ -133,17 +142,20 @@
   // Delete Sensor
   public function delete() {
     // Create query
-    $query = 'DELETE FROM ' . $this->table . ' WHERE sensor_id = :sensor_id';
+    $query = 'DELETE FROM ' . $this->table . ' WHERE id_measurement = : id_measurement';
 
     // Prepare Statement
     $stmt = $this->conn->prepare($query);
 
     // clean data
-    $this->sensor_id = htmlspecialchars(strip_tags($this->sensor_id));
+    //$this->sensor_id = htmlspecialchars(strip_tags($this->sensor_id));
 
     // Bind Data
-    $stmt-> bindParam(':sensor_id', $this->sensor_id);
-
+    $stmt-> bindParam(':id_measurement', $this->sensor_type);
+    $stmt-> bindParam(':sensor_id', $this->location);
+    $stmt-> bindParam(':time', $this->sample_rate);
+    $stmt-> bindParam(':value', $this->value);
+    
     // Execute query
     if($stmt->execute()) {
       return true;
