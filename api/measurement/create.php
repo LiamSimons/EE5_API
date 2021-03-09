@@ -12,13 +12,13 @@
   $db = $database->connect();
 
   // Instantiate blog post object
-  $sensor = new Sensor($db);
+  $measurement = new Measurement($db);
 
   // Get raw posted data
   $data = json_decode(file_get_contents("php://input"));
   
   var_dump(file_get_contents('php://input'));
-  $measurement ->id_measurement = $data->id_measurement;
+  //$measurement ->id_measurement = $data->id_measurement;
   $measurement ->sensor_id =  $data->sensor_id;
   $measurement ->value = $data->value;
   $measurement -> time = $data->time;
@@ -26,10 +26,10 @@
   // Create Sensor
   if($measurement->create()) {
     echo json_encode(
-      array('message' => 'Sensor Created')
+      array('message' => 'Measurement Created')
     );
   } else {
     echo json_encode(
-      array('message' => 'Sensor Not Created')
+      array('message' => 'Measurement Not Created')
     );
   }

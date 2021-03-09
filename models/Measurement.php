@@ -2,7 +2,7 @@
   class Measurement {
     // DB Stuff
     private $conn;
-    private $table = 'Measurements';
+    private $table = 'Measurement';
 
     // Properties
     public $id_measurement;
@@ -83,12 +83,12 @@
   $stmt = $this->conn->prepare($query);
 
   // Clean data
-  $this->sensor_type = htmlspecialchars(strip_tags($this->sensor_type));
+  //$this->sensor_type = htmlspecialchars(strip_tags($this->sensor_type));
 
   // Bind data
-  $stmt-> bindParam(':id_measurement', $this->sensor_type);
-  $stmt-> bindParam(':sensor_id', $this->location);
-  $stmt-> bindParam(':time', $this->sample_rate);
+  $stmt-> bindParam(':id_measurement', $this->id_measurement);
+  $stmt-> bindParam(':sensor_id', $this->sensor_id);
+  $stmt-> bindParam(':time', $this->time);
   $stmt-> bindParam(':value', $this->value);
 
   // Execute query
