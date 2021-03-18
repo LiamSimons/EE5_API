@@ -9,6 +9,7 @@
     public $sensor_id;
     public $time;
     public $value;
+    public $session_id;
 
     // Constructor with DB
     public function __construct($db) {
@@ -19,12 +20,12 @@
     public function read() {
       // Create query
       $query = 'SELECT
- 
 
         id_measurement,
         sensor_id,
         time,
-        value
+        value,
+        session_id
       FROM
         ' . $this->table . '
       ORDER BY
@@ -46,7 +47,8 @@
         id_measurement,
         sensor_id,
         time,
-        value
+        value,
+        session_id
         FROM
           ' . $this->table . '
       WHERE id_measurement = ?
@@ -75,6 +77,7 @@
     SET
     id_measurement = :id_measurement,
     sensor_id = :sensor_id,
+    session_id = :session_id,
     time=:time,
     value=:value'
       ;
@@ -90,6 +93,7 @@
   $stmt-> bindParam(':sensor_id', $this->sensor_id);
   $stmt-> bindParam(':time', $this->time);
   $stmt-> bindParam(':value', $this->value);
+  $stmt-> bindParam(':session_id', $this->session_id);
 
   // Execute query
   if($stmt->execute()) {
@@ -110,6 +114,7 @@
     SET
        id_measurement = :id_measurement,
     sensor_id = :sensor_id,
+    session_id = :session_id,
     time=:time,
     value=:value
       WHERE
@@ -127,6 +132,7 @@
   $stmt-> bindParam(':sensor_id', $this->location);
   $stmt-> bindParam(':time', $this->sample_rate);
   $stmt-> bindParam(':value', $this->value);
+  $stmt-> bindParam(':session_id', $this->session_id);
 
   // Execute query
   if($stmt->execute()) {
@@ -155,6 +161,7 @@
     $stmt-> bindParam(':sensor_id', $this->location);
     $stmt-> bindParam(':time', $this->sample_rate);
     $stmt-> bindParam(':value', $this->value);
+    $stmt-> bindParam(':session_id', $this->session_id);
     
     // Execute query
     if($stmt->execute()) {

@@ -22,6 +22,7 @@
   $measurement ->sensor_id =  $data->sensor_id;
   $measurement ->value = $data->value;
   $measurement -> time = $data->time;
+  $measurement ->session_id=$data->session_id;
 
   // Delete post
   if($measurement->delete()) {

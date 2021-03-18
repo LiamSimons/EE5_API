@@ -33,6 +33,7 @@
             'sensor_id' => $sensor_id,
             'value' => $value,
             'time' => $time,
+            'session_id' => $session_id,
           );
 
           // Push to "data"
